@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EmployeeManager.Models.Employee>
+
+@{
+    ViewBag.Title = "Employee Listing";
+}
+
+<h2>Index</h2>
+
+<p>
+    @if (!ViewBag.IsReadOnly)
+    {
+        @Html.ActionLink("Create New", "Edit", new { id=-1 })
+    }
+    
+</p>
+@using(Html.BeginForm("DeleteConfirmed", "Employee", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+                
+    //if the user clicks a Delete button, then this hidden input will contain the PK of the employee ID record to be deleted.  (using the "pk" naming convention here so as not to confuse this value with the field Employee.EmployeeId
+    <input type="hidden" id="selEmployeePk" name="selEmployeePk" value="" />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @if (!ViewBag.IsReadOnly)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) 
+                }
+                else
+                {
+                    @Html.ActionLink("Details", "Edit", new { id=item.ID })
+                }
+           
+                @if (!ViewBag.IsReadOnly)
+                {
+                    @Html.Raw("|")
+                    //the JS function ConfirmDelete will store the employee record's PK in a hidden input, and prompt the user for confirmation
+                        <div class="form-actions no-color" style="display:inline;">
+                            <input type="submit" value="Delete" class="btn btn-default" onclick="return ConfirmDelete(@item.ID);" /> 
+                        </div>
+                }
+            
+            </td>
+        </tr>
+    }
+
+    </table>
+}

@@ -1,0 +1,128 @@
+﻿@model EmployeeManager.Models.Employee
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+    </div>
+        
+        <table border="0">
+            <tr>
+                <td style="padding-top: 5px;">
+                    @Html.LabelFor(model => model.EmployeeId, new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @if (ViewBag.IsReadOnly)
+                    {
+                        @Html.DisplayFor(model => model.EmployeeId)
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.EmployeeId)
+                        @Html.ValidationMessageFor(model => model.EmployeeId)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @if (ViewBag.IsReadOnly)
+                    {
+                        @Html.DisplayFor(model => model.FirstName)
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.FirstName)
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    @Html.LabelFor(model => model.MiddleName, new { @class = "control-label col-md-2"})
+                </td>
+                <td>
+                    @if (ViewBag.IsReadOnly)
+                    {
+                        @Html.DisplayFor(model => model.MiddleName)
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.MiddleName)
+                        @Html.ValidationMessageFor(model => model.MiddleName)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2"})
+                </td>
+                <td>
+                    @if (ViewBag.IsReadOnly)
+                    {
+                        @Html.DisplayFor(model => model.LastName)
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.LastName)
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    @Html.LabelFor(model => model.StartDate, new { @class = "control-label col-md-2"})
+                </td>
+                <td>
+                    @if (ViewBag.IsReadOnly)
+                    {
+                        @ViewBag.StartDateString
+                    }
+                    else
+                    {
+                        if ("Chrome" == Request.Browser.Browser)
+                        {
+                            @Html.EditorFor(model => model.StartDate)
+                        }
+                        else
+                        {
+                            <input class="text-box single-line" data-val="true" data-val-date="The field Start Date must be a date." data-val-required="The Start Date field is required." id="StartDate" name="StartDate" type="date" value="@ViewBag.StartDateString" />
+
+                        }
+
+                        @Html.ValidationMessageFor(model => model.StartDate)
+                    }
+                </td>
+            </tr>
+        </table>
+        
+        if (!ViewBag.IsReadOnly)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
