@@ -88,17 +88,18 @@
                 <td>
                     @if (ViewBag.IsReadOnly)
                     {
-                        @ViewBag.StartDateString
+                        @ViewBag.StartDateString //ViewBag.StartDateString is the date in standard US format (mm/DD/yyyy)
                     }
                     else
                     {
+                        //we need a special case here b/c Chrome supports the HTML 5 date picker control, which requires the date be in a format of yyyy-DD-mm.  But on other browsers that just have a textbox instead of a date picker, we want to show the date in the standard US format (mm/DD/yyyy)
                         if ("Chrome" == Request.Browser.Browser)
                         {
                             @Html.EditorFor(model => model.StartDate)
                         }
                         else
                         {
-                            <input class="text-box single-line" data-val="true" data-val-date="The field Start Date must be a date." data-val-required="The Start Date field is required." id="StartDate" name="StartDate" type="date" value="@ViewBag.StartDateString" />
+                            <input class="text-box single-line" data-val="true" data-val-date="The field Start Date must be a date." data-val-required="The Start Date field is required." id="StartDate" name="StartDate" type="date" value="@ViewBag.StartDateString" /> //ViewBag.StartDateString is the date in standard US format (mm/DD/yyyy)
 
                         }
 

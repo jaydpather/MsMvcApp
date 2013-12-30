@@ -35,7 +35,7 @@ namespace EmployeeManager.Models
         [Display(Name = "Start Date")]
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] //the display format used here will give us compatibility with browsers that use the HTML5 date picker control.  For other browsers, we'll convert to standard US format
         public DateTime StartDate { get; set; }
     }
 

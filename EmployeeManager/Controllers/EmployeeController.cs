@@ -36,6 +36,7 @@ namespace EmployeeManager.Controllers
                 return HttpNotFound();
             }
 
+            //DisplayFormat of StartDate is yyyy-mm-DD, but that is only in order to be compatible with browsers that use the HTML5 date picker control.  We're calling ToShortDateString so that we can use the standard US date format for other browsers.
             ViewBag.StartDateString = employee.StartDate.ToShortDateString();
             return View(employee);
         }
